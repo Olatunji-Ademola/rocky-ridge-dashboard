@@ -1,13 +1,12 @@
 <script>
 import image from "$lib/image/rrcm logo.svg";
-
 </script>
    
 <main>
 
 <div class="login-box">
     <img src={image} alt="Logo">
-    <h2>LOGIN</h2>
+    <h2> Welcome to the Login Page</h2>
     <form>
       <label for="username">Username</label>
       <input type="text" id="username" name="username" placeholder="Enter your username" required>
