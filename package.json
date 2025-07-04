@@ -14,6 +14,7 @@
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",
 		"@eslint/js": "^9.18.0",
+		"@fontsource/poppins": "^5.2.6",
 		"@sveltejs/adapter-auto": "^6.0.0",
 		"@sveltejs/kit": "^2.16.0",
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
@@ -29,5 +30,8 @@
 		"tailwindcss": "^4.0.0",
 		"vite": "^6.2.6",
 		"vite-plugin-devtools-json": "^0.2.0"
+	},
+	"dependencies": {
+		"svelte-awesome-icons": "^2.0.1"
 	}
 }
