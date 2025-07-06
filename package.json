@@ -32,6 +32,8 @@
 		"vite-plugin-devtools-json": "^0.2.0"
 	},
 	"dependencies": {
+		"google-auth-library": "^9.15.1",
+		"google-spreadsheet": "^4.1.4",
 		"svelte-awesome-icons": "^2.0.1"
 	}
 }
