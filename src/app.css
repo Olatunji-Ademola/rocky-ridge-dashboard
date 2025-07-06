@@ -4,4 +4,27 @@
 	--color-primary_green: #007775;
 	--color-primary_red: #ff5266;
 	--color-primary_yellow: #f89e1e;
+
+	--animate-loading: loading 2s linear infinite;
+	--animate-wiggle: wiggle 300ms ease-in 3;
+
+	@keyframes wiggle {
+		25% {
+			transform: rotate(30deg);
+		}
+		75% {
+			transform: rotate(-30deg);
+		}
+		50%,
+		0%,
+		100% {
+			transform: rotate(0deg);
+		}
+	}
+
+	@keyframes loading {
+		100% {
+			transform: rotate(360deg);
+		}
+	}
 }

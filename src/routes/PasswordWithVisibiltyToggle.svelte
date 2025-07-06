@@ -29,7 +29,7 @@
 		name="password"
 		placeholder="Password"
 		required
-		class=" w-full rounded-md border border-gray-300 p-2 outline-none focus:shadow *:focus:shadow focus:placeholder:text-gray-300"
+		class=" w-full rounded-md border border-gray-300 p-2 outline-none focus:shadow *:focus:shadow focus:placeholder:text-gray-200"
 	/>
 	<button
 		aria-label="toggle password visibility"

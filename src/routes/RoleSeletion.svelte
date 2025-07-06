@@ -50,7 +50,7 @@
 <div class="relative" id="selectionRole">
 	<button
 		type="button"
-		class="flex w-full items-center justify-between rounded-md border border-gray-300 p-2"
+		class="flex w-full items-center justify-between rounded-md border border-gray-300 p-2 outline-none focus:shadow"
 		onclick={toggleRolePopup}
 	>
 		<p id="selectedRole">Student</p>
@@ -59,12 +59,12 @@
 	<!-- role options list -->
 	<ul
 		id="roleList"
-		class="*:hover:bg-primary_red absolute inset-x-0 z-10 hidden rounded-sm border border-gray-300 bg-white shadow-md *:cursor-pointer *:hover:text-white"
+		class=" absolute inset-x-0 z-10 hidden rounded-sm border border-gray-300 bg-white shadow-md *:cursor-pointer"
 	>
 		<li>
 			<button
 				id="Student"
-				class="w-full px-2 py-1 text-left"
+				class="hover:bg-primary_red w-full px-2 py-1 text-left hover:text-white"
 				onclick={(event) => {
 					selectRole(event, 'Student');
 				}}
@@ -74,7 +74,7 @@
 		<li>
 			<button
 				id="Staff"
-				class="w-full px-2 py-1 text-left"
+				class="hover:bg-primary_red w-full px-2 py-1 text-left hover:text-white"
 				onclick={() => {
 					selectRole(event, 'Staff');
 				}}
@@ -84,7 +84,7 @@
 		<li>
 			<button
 				id="Faculty"
-				class="w-full px-2 py-1 text-left"
+				class="hover:bg-primary_red w-full px-2 py-1 text-left hover:text-white"
 				onclick={() => {
 					selectRole(event, 'Faculty');
 				}}
