@@ -3,8 +3,6 @@
 	import { SpinnerSolid, TriangleExclamationSolid } from 'svelte-awesome-icons';
 	import PasswordWithVisibiltyToggle from './PasswordWithVisibiltyToggle.svelte';
 	import RoleSeletion from './RoleSeletion.svelte';
-	// import { redirect } from '@sveltejs/kit';
-	// import { updated } from '$app/state';
 	import { enhance } from '$app/forms';
 
 	const { form } = $props();
@@ -77,11 +75,9 @@
 
 	@keyframes slideUp {
 		from {
-			/* opacity: 0; */
 			transform: translateY(20px);
 		}
 		to {
-			/* opacity: 1; */
 			transform: translateY(0);
 		}
 	}
