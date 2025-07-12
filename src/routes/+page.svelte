@@ -25,7 +25,7 @@
 		<div
 			class="login-box flex w-full max-w-md flex-col gap-11 bg-white p-6 sm:items-center sm:gap-6 sm:shadow"
 		>
-			<img src={logoImage} alt="rock rigde logo" width="200px" class=" opacity-30 grayscale" />
+			<img src={logoImage} alt="rock rigde logo" width="200px" class="" />
 			<form
 				method="POST"
 				action="?/login"

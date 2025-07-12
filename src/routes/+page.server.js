@@ -1,43 +1,18 @@
 import { fail, redirect } from '@sveltejs/kit';
-import { SPREADSHEET_ID, SERVICE_ClIENT_EMAIL, SERVICE_PRIVATE_KEY } from '$env/static/private';
-import { GoogleSpreadsheet } from 'google-spreadsheet';
-import { JWT } from 'google-auth-library';
 
-function init() {
-	const serviceAccountAuth = new JWT({
-		email: SERVICE_ClIENT_EMAIL,
-		key: SERVICE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-		scopes: ['https://www.googleapis.com/auth/spreadsheets']
-	});
+import {
+	encryptData,
+	getRowByPassword,
+	getSheet,
+	isEmail,
+	isPassword,
+	isRole
+} from '$lib/utilities';
 
-	return new GoogleSpreadsheet(SPREADSHEET_ID, serviceAccountAuth);
+export async function load({ cookies }) {
+	// delete cookie
+	cookies.delete('sessionTokenID', { path: '/' });
 }
-const doc = init();
-
-const getSheet = async (sheetRole) => {
-	try {
-		await doc.loadInfo();
-		const sheet = doc.sheetsByTitle[sheetRole];
-		return sheet;
-	} catch (err) {
-		return null;
-	}
-};
-const getRowByPassword = async (sheet, password) => {
-	try {
-		let data = null;
-		const rows = await sheet.getRows();
-		const rowData = rows.filter((row) => {
-			// change Cabin Code to password
-			return row.toObject()['Cabin Code'] == password;
-		});
-
-		data = rowData.length ? rowData[0].toObject() : null;
-		return data;
-	} catch (err) {
-		return null;
-	}
-};
 
 export const actions = {
 	login: async ({ cookies, request }) => {
@@ -50,11 +25,11 @@ export const actions = {
 		const role = data.get('role');
 
 		// - check if the email is a valid email string
-		const isEmailFormat = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+		const isEmailFormat = isEmail(email);
 		// - check if it's isalphanumeric and length is equal to 6
-		const isPasswordFormat = /^[a-zA-Z0-9]{6}$/.test(password);
+		const isPasswordFormat = isPassword(password);
 		// - check if role is a valid role
-		const isRoleFormat = /Student|Staff|Faculty/.test(role);
+		const isRoleFormat = isRole(role);
 		//- check validity : fail if invalid
 		if (!(isEmailFormat && isPasswordFormat && isRoleFormat))
 			return fail(401, { email, message: 'Invalid password or email address' });
@@ -70,9 +45,12 @@ export const actions = {
 
 				if (isEmailVerified) {
 					// do send user password
-					delete rowData['Cabin Code'];
-					const userData = { ...rowData, role };
-					cookies.set('accessToken', JSON.stringify(userData), { path: '/' });
+					delete rowData['Password'];
+					const accessToken = `${password}|${role}|${Date.now()}`;
+
+					// remove this
+					const encryptedData = encryptData(JSON.stringify(accessToken));
+					cookies.set('sessionTokenID', encryptedData, { path: '/', expires: 0 });
 
 					redirect(303, '/dashboard');
 				} else {
