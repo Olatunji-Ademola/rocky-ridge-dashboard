@@ -13,10 +13,13 @@ export function init() {
 }
 const doc = init();
 
-export const getSheet = async (sheetRole) => {
+(async () => {
+	await doc.loadInfo();
+})();
+
+export const getSheet = async (sheetTitle) => {
 	try {
-		await doc.loadInfo();
-		const sheet = doc.sheetsByTitle[sheetRole];
+		const sheet = doc.sheetsByTitle[sheetTitle];
 		return sheet;
 	} catch (err) {
 		return null;
@@ -28,7 +31,6 @@ export const getRowByPassword = async (sheet, password) => {
 		const rows = await sheet.getRows();
 
 		const rowData = rows.filter((row) => {
-			// change Cabin Code to password
 			return row.toObject()['Password'] === password;
 		});
 
