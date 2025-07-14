@@ -37,7 +37,7 @@
 	</div>
 {:else if calendarBody}
 	<div class="m-auto w-fit p-6">
-		<h1 class=" my-4 text-center !text-xl font-bold">{calendarTitle}</h1>
+		<h1 class=" !text-primary_green my-4 text-center !text-xl font-bold">{calendarTitle}</h1>
 		<table>
 			<thead>
 				<tr>
@@ -76,21 +76,21 @@
 		color: #444;
 	}
 	table {
-		background-color: #f8f3ef;
+		background-color: whitesmoke;
 	}
 	th {
-		color: var(--color-primary_green);
+		color: white;
 		padding: 6px;
 		position: sticky;
 		top: 0;
-		background-color: #faddb4;
+		background-color: var(--color-primary_green);
 		font-weight: 500;
 	}
 	thead > tr {
 		border: none;
 	}
 	tr {
-		border: 1px solid #f7c68377;
+		border: 1px solid color-mix(in oklab, var(--color-primary_green) 20%, transparent);
 	}
 	td:nth-child(1) {
 		width: 100px;
@@ -102,6 +102,6 @@
 		padding: 10px;
 	}
 	td:nth-child(even) {
-		background-color: #fff8;
+		background-color: #fff9;
 	}
 </style>
