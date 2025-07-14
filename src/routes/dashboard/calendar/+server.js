@@ -1,7 +1,7 @@
+import { json } from '@sveltejs/kit';
 import { getSheet } from '$lib/utilities';
 
-export async function load() {
-	// get this from the user session
+export async function GET() {
 	const WeekSchedule =
 		'Jazz Schedule' || 'JAI Week Schedule' || 'Mariachi Schedule' || 'CI Week Schedule';
 
@@ -15,8 +15,6 @@ export async function load() {
 	rows.forEach((row, index) => {
 		const data = row.toObject();
 		const keys = Object.keys(data);
-
-		// console.log(data);
 
 		if (index == rows.length - 1) {
 			calendarHead = keys;
@@ -33,5 +31,5 @@ export async function load() {
 		return row.toObject();
 	});
 
-	return { calendarData: { calendarTitle, calendarHead, calendarBody } };
+	return json({ calendarTitle, calendarHead, calendarBody });
 }

@@ -1,14 +1,6 @@
 import { decryptData, getRowByPassword, getSheet, isPassword, isRole } from '$lib/utilities';
 import { redirect } from '@sveltejs/kit';
 
-// # Fix Today
-// - the initial routing problem *
-// - dash board routing design
-// - the calendar data loading multiple times
-// - userinfo
-// - responsiveness
-// - some styling ?
-
 function dataFormSession(id) {
 	// decrypting logic ID
 	const ID = JSON.parse(decryptData(id));
@@ -20,6 +12,7 @@ function dataFormSession(id) {
 
 	return [password, role, expirationDate];
 }
+
 export const load = async ({ cookies }) => {
 	const sessionID = cookies.get('sessionTokenID');
 
