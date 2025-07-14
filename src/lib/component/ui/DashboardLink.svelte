@@ -5,7 +5,7 @@
 <li>
 	<a href={to} rel="noopener noreferrer" class:active={pathname === to}>
 		<div
-			class=" flex items-center gap-x-1.5 rounded-t-lg p-1 px-4 text-white transition duration-300 hover:bg-cyan-900/40"
+			class=" hover:text-primary_red flex items-center gap-x-3 rounded-full p-1 px-4 transition duration-200"
 		>
 			{@render children()}
 		</div>
@@ -14,8 +14,9 @@
 
 <style>
 	.active div {
-		background-color: white;
-		color: var(--color-primary_green);
+		background-color: #f001;
+
+		color: var(--color-primary_red);
 		font-weight: 600;
 	}
 </style>

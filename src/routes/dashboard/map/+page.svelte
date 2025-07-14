@@ -7,6 +7,6 @@
 		src={mapImage}
 		width="1300"
 		alt="rocky ridge music map"
-		class="border-primary_red/20 m-auto border shadow-lg"
+		class=" m-auto overflow-hidden border border-gray-200 shadow-lg"
 	/>
 </div>
