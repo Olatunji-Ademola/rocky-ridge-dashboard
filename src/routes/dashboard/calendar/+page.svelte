@@ -1,6 +1,5 @@
 <script>
 	const { data } = $props();
-	// const { calendarData,  } = data;
 	const { calendarBody, calendarHead, calendarTitle } = data.calendarData;
 </script>
 

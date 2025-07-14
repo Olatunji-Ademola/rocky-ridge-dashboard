@@ -24,6 +24,9 @@
 			<UserInfoPopup userData={data} />
 		</div>
 		<ul class="*:hover:text-primary_red inline-flex text-sm capitalize *:rounded-sm">
+			<DashboardLink to="/dashboard" pathname={$page.url.pathname}>
+				<p>home</p>
+			</DashboardLink>
 			<DashboardLink to="/dashboard/calendar" pathname={$page.url.pathname}>
 				<CalendarRegular size={16} class="opacity-70" />
 				<p>calendar</p>
