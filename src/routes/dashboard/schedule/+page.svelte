@@ -18,7 +18,7 @@
 		} else {
 			loadingCalendar = true;
 			try {
-				const res = await fetch('/dashboard/calendar');
+				const res = await fetch('/dashboard/schedule');
 				const data = await res.json();
 				setCalendarData(data);
 			} catch (e) {}
@@ -31,7 +31,7 @@
 {#if loadingCalendar}
 	<div class="flex h-full w-full items-center justify-center">
 		<div class="flex items-center gap-2 *:!text-base *:!text-gray-400">
-			<div>Loading calendar</div>
+			<div>Loading schedule</div>
 			<SpinnerSolid size={20} class="spinner animate-loading" />
 		</div>
 	</div>
@@ -64,7 +64,7 @@
 		<div class=" flex w-fit flex-col items-center gap-2 text-center *:!text-base *:!text-amber-500">
 			<TriangleExclamationSolid />
 			<div>
-				No calendar loaded <br /> try refreshing
+				No schedule loaded <br /> try refreshing
 			</div>
 		</div>
 	</div>

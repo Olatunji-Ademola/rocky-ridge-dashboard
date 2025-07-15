@@ -58,9 +58,9 @@
 					<HouseSolid size="16" class="text-[#bbb6ae]" />
 					<p>home</p>
 				</DashboardLink>
-				<DashboardLink to="/dashboard/calendar" color="#007775" pathname={$page.url.pathname}>
+				<DashboardLink to="/dashboard/schedule" color="#007775" pathname={$page.url.pathname}>
 					<CalendarRegular size={16} class="text-primary_green opacity-70" />
-					<p>calendar</p>
+					<p>schedule</p>
 				</DashboardLink>
 				<DashboardLink to="/dashboard/map" color="#ff5266" pathname={$page.url.pathname}>
 					<MapRegular size={16} class="text-primary_red opacity-70" />
