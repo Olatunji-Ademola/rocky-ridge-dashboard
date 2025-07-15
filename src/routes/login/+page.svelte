@@ -14,7 +14,7 @@
 	<div class="relative w-96 max-w-full">
 		{#if errorMsg}
 			<div
-				class="text-primary_red absolute inset-x-0 bottom-0 flex translate-y-full flex-col items-center gap-2 bg-red-200 px-6 py-2 text-center leading-tight"
+				class="text-primary_red absolute inset-x-0 bottom-0 flex flex-col items-center gap-2 bg-red-200 px-6 py-2 text-center leading-tight"
 			>
 				<TriangleExclamationSolid class="animate-wiggle" />
 				<h2>{errorMsg}</h2>

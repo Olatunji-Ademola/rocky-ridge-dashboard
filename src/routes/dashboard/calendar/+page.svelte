@@ -36,7 +36,7 @@
 		</div>
 	</div>
 {:else if calendarBody}
-	<div class="m-auto w-fit p-6">
+	<div class="m-auto w-fit 2xl:p-6">
 		<h1 class=" !text-primary_green my-4 text-center !text-xl font-bold">{calendarTitle}</h1>
 		<table>
 			<thead>
@@ -85,6 +85,7 @@
 		top: 0;
 		background-color: var(--color-primary_green);
 		font-weight: 500;
+		z-index: 1;
 	}
 	thead > tr {
 		border: none;
@@ -96,6 +97,9 @@
 		width: 100px;
 		color: var(--color-primary_green);
 		text-align: center;
+		position: sticky;
+		background-color: whitesmoke;
+		left: 0;
 	}
 	td {
 		width: 200px;

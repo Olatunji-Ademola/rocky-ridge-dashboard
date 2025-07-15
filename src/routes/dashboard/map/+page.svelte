@@ -2,7 +2,7 @@
 	import mapImage from '$lib/image/campusMap.jpg';
 </script>
 
-<div class=" w-full p-6">
+<div class=" w-full py-6 lg:p-6">
 	<img
 		src={mapImage}
 		width="1300"
