@@ -3,18 +3,22 @@ import { GoogleSpreadsheet } from 'google-spreadsheet';
 import { JWT } from 'google-auth-library';
 
 export function init() {
-	const serviceAccountAuth = new JWT({
-		email: SERVICE_ClIENT_EMAIL,
-		key: SERVICE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-		scopes: ['https://www.googleapis.com/auth/spreadsheets']
-	});
+	try {
+		const serviceAccountAuth = new JWT({
+			email: SERVICE_ClIENT_EMAIL,
+			key: SERVICE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+			scopes: ['https://www.googleapis.com/auth/spreadsheets']
+		});
 
-	return new GoogleSpreadsheet(SPREADSHEET_ID, serviceAccountAuth);
+		return new GoogleSpreadsheet(SPREADSHEET_ID, serviceAccountAuth);
+	} catch (err) {
+		return null;
+	}
 }
 const doc = init();
 
 (async () => {
-	await doc.loadInfo();
+	await doc?.loadInfo();
 })();
 
 export const getSheet = async (sheetTitle) => {

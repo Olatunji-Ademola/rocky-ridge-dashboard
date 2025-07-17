@@ -52,7 +52,7 @@ export const actions = {
 					const encryptedData = encryptData(JSON.stringify(accessToken));
 					cookies.set('sessionTokenID', encryptedData, { path: '/', expires: 0 });
 
-					redirect(303, '/dashboard');
+					throw redirect(303, '/dashboard');
 				} else {
 					// // emial is found
 					return fail(401, { email, message: 'Invalid password or email address' });
