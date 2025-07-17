@@ -15,14 +15,65 @@
 	import { page } from '$app/stores';
 	import DashboardLink from '$lib/component/ui/DashboardLink.svelte';
 	import UserInfoPopup from '$lib/component/ui/UserInfoPopup.svelte';
-	const { data, children } = $props();
+	import { json } from '@sveltejs/kit';
+	import { setIsUserActive, setUserSchedule } from './store.svelte.js';
+	const { data, children, url } = $props();
 
 	let menuOpen = $state(false);
+	let dataLoaded = $state(false);
 
 	let menuRef = null;
 	let menuFillerRef = null;
 
-	$effect(() => {
+	$effect(async () => {
+		let UserSessions = data['Session'].split(',').map((value) => value.trim());
+		try {
+			const res = await fetch('/dashboard/api/presentSession');
+			const sessionData = await res.json();
+			const { presentSession, allSessionList } = sessionData;
+
+			// list of session the user is active for
+
+			// check if the user have access to the present session
+			const isUserActive = UserSessions.includes(presentSession);
+
+			// set user session schedule
+			let userSchedule = '';
+			if (isUserActive) {
+				userSchedule = presentSession;
+			} else {
+				if (allSessionList.includes(presentSession)) {
+					let avaliableSessions = [];
+
+					// get all the sessiom prior to the present session
+					for (let i = 0; i < allSessionList.length; i++) {
+						if (allSessionList[i] == presentSession) break;
+						avaliableSessions.push(allSessionList[i]);
+					}
+
+					// get the latest session in the list of avaliableSessions is uesr is active
+					UserSessions.forEach((value) => {
+						if (avaliableSessions.includes(value)) userSchedule = value;
+					});
+
+					// if no session is avaliable to the user pick the user frist active session
+					if (!userSchedule) userSchedule = UserSessions[0];
+				} else {
+					userSchedule = UserSessions[0];
+				}
+			}
+
+			// set global state
+			setIsUserActive(isUserActive);
+			setUserSchedule(userSchedule);
+			dataLoaded = true;
+		} catch (err) {
+			dataLoaded = true;
+			setUserSchedule(UserSessions[0]);
+		}
+	});
+
+	$effect(async () => {
 		if (menuOpen) {
 			menuRef.classList.remove('hidden');
 			menuFillerRef.classList.remove('hidden');
@@ -108,7 +159,10 @@
 	</div>
 
 	<main class="bg-primary_yellow/5 grow overflow-auto">
-		{@render children()}
+		<!-- map | home -->
+		{#if $page.url.pathname == '/dashboard' || $page.url.pathname == '/dashboard/map' || dataLoaded}
+			{@render children()}
+		{/if}
 	</main>
 </div>
 

@@ -1,6 +1,7 @@
 <script>
 	import { SpinnerSolid, TriangleExclamationSolid } from 'svelte-awesome-icons';
-	import { getCalendarData, setCalendarData } from '../store.svelte';
+	import { getCalendarData, getUserSchedule, setCalendarData } from '../store.svelte';
+	import { json } from '@sveltejs/kit';
 
 	let calendarTitle = $state(null);
 	let calendarHead = $state(null);
@@ -17,8 +18,16 @@
 			calendarBody = calendarData.calendarBody;
 		} else {
 			loadingCalendar = true;
+
 			try {
-				const res = await fetch('/dashboard/schedule');
+				const schedule = getUserSchedule();
+
+				const res = await fetch('/dashboard/schedule', {
+					method: 'POST',
+					body: JSON.stringify({ schedule }),
+					headers: { 'Content-Type': 'application/json' }
+				});
+
 				const data = await res.json();
 				setCalendarData(data);
 			} catch (e) {}
