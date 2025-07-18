@@ -1,8 +1,5 @@
 <script>
-	const { color, placeholder, isInput = true } = $props();
-
-	// console.log(color);
-	const text_color = 'green';
+	const { color, name, placeholder, isInput = true } = $props();
 
 	const setStyleVariableColot = (node, value) => {
 		node.style.setProperty(`--color`, value);
@@ -14,17 +11,18 @@
 		use:setStyleVariableColot={color}
 		type="text"
 		id="UserInput"
-		class="rounded border border-transparent p-2 outline-none"
+		{name}
 		{placeholder}
+		class="rounded border border-transparent p-2 outline-none"
 	/>
 {:else}
+	<!-- rows="10" -->
 	<textarea
 		use:setStyleVariableColot={color}
-		name=""
 		id="UserInput"
-		rows="10"
+		{name}
 		{placeholder}
-		class=" rounded border border-transparent p-2 outline-none"
+		class="max-h-92 min-h-46 rounded border border-transparent p-2 outline-none"
 	></textarea>
 {/if}
 

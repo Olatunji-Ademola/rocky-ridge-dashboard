@@ -82,3 +82,15 @@ export const isRole = (role) => {
 export const isEmail = (email) => {
 	return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
 };
+
+export const isName = (name) => {
+	return /^[a-zA-Z ]+$/.test(name);
+};
+
+export const isMessage = (message) => {
+	return /^[a-zA-Z0-9 '().,-_]+$/.test(message);
+};
+
+export const isLocation = (location) => {
+	return /^[a-zA-Z0-9_ ]+$/.test(location);
+};
