@@ -92,5 +92,5 @@ export const isMessage = (message) => {
 };
 
 export const isLocation = (location) => {
-	return /^[a-zA-Z0-9_ ]+$/.test(location);
+	return /^[a-zA-Z0-9_' ]+$/.test(location);
 };

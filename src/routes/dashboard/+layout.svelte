@@ -102,7 +102,7 @@
 			</h2>
 			<p class="text-sm text-gray-500">Welcome</p>
 		</div>
-		<div class="lg:mt-20">
+		<div class=" lg:mt-20">
 			<h3 class="text-gray-400">Dash menu</h3>
 			<ul class=" mr-4 text-gray-600 capitalize *:mt-6">
 				<DashboardLink to="/dashboard" color="#bbb6ae" pathname={$page.url.pathname}>
@@ -149,7 +149,7 @@
 		class="absolute inset-0 z-40 hidden bg-black/10 lg:hidden"
 	></button>
 
-	<div class="flex justify-between p-4 text-gray-500 shadow lg:hidden">
+	<div class="flex justify-between border-b border-gray-300 p-4 text-gray-500 lg:hidden">
 		<h2>
 			Welcome <span class="font-bold">{data['Name']}</span>
 		</h2>
