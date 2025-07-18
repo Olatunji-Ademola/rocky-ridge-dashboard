@@ -15,9 +15,6 @@
 		'Ensemble info'
 	];
 
-	// console.log('data :', data);
-	// console.log('man');
-
 	let showPassword = $state(false);
 	let loadingAnnounement = $state(false);
 

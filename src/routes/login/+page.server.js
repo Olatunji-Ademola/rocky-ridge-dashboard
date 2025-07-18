@@ -62,7 +62,7 @@ export const actions = {
 				return fail(401, { email, message: 'Invalid password or email address' });
 			}
 		} else {
-			return fail(500, { message: 'something went wrong try again' });
+			return fail(500, { email, message: 'something went wrong try again' });
 		}
 	}
 };

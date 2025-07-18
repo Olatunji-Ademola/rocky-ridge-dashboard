@@ -125,9 +125,13 @@
 					<CalendarCheckRegular size={16} class="text-primary_green opacity-70" />
 					<p>schedule a lesson</p>
 				</DashboardLink>
-				<DashboardLink to="" color="#ff5266" pathname={$page.url.pathname}>
+				<DashboardLink
+					to="/dashboard/maintenance-request"
+					color="#ff5266"
+					pathname={$page.url.pathname}
+				>
 					<ScrewdriverWrenchSolid size={16} class="text-primary_red opacity-70" />
-					<p>mentainace request</p>
+					<p>maintenance request</p>
 				</DashboardLink>
 				<DashboardLink to="" color="#f89e1e" pathname={$page.url.pathname}>
 					<AwardSolid size={16} class="text-primary_yellow opacity-70" />
