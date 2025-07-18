@@ -1,7 +1,7 @@
 <script>
 	import { EyeRegular, EyeSlashRegular, SpinnerSolid } from 'svelte-awesome-icons';
 	import { getAnnouncementData, setAnnouncementData } from './store.svelte';
-	import SeeMoreText from './SeeMoreText.svelte';
+	import SeeMoreText from '$lib/component/ui/SeeMoreText.svelte';
 
 	const { data } = $props();
 	const userInfo = [

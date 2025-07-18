@@ -1,11 +1,6 @@
 import { getSheet, isEmail, isLocation, isMessage, isName } from '$lib/utilities';
 import { fail } from '@sveltejs/kit';
 
-function filterByKey(obj, key, value) {
-	return obj.filter((element) => {
-		return (element[key] = value);
-	});
-}
 export const actions = {
 	request: async ({ request }) => {
 		const data = await request.formData();
@@ -27,13 +22,14 @@ export const actions = {
 				const sheet = await getSheet('Maintenance Request');
 				const row = await sheet.addRow({ Name, Email, Location, Message });
 
-				const rows = await sheet.getRows();
+				const rowData = row.toObject();
 
-				rows.map((row) => {
-					const rowData = row.toObject();
-				});
+				// rows.map((row) => {
+				// 	const rowData = row.toObject();
+				// });
 
 				return {
+					request: rowData,
 					successMessage:
 						'thank you for submitting a Maintenance request, it will be reviwed as soon as posible'
 				};

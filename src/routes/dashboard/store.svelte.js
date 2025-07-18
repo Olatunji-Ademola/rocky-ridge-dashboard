@@ -17,8 +17,14 @@ export const setIsUserActive = (isActive) => {
 	isUserActive = isActive;
 };
 
-let userSchedule = '';
+let userSchedule = $state('');
 export const getUserSchedule = () => userSchedule;
 export const setUserSchedule = (schedule) => {
 	userSchedule = schedule;
+};
+
+let requestHistory = $state(null);
+export const getRequestHistory = () => requestHistory;
+export const setRequestHistory = (request) => {
+	requestHistory = request;
 };

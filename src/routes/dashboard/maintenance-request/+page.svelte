@@ -1,10 +1,37 @@
 <script>
 	import { enhance } from '$app/forms';
 	import Input from '$lib/component/ui/Input.svelte';
+	import SeeMoreText from '$lib/component/ui/SeeMoreText.svelte';
+	import { onMount } from 'svelte';
+	import { getRequestHistory, setRequestHistory } from '../store.svelte.js';
 
 	const { data, form } = $props();
 
 	let isSubmitting = $state(false);
+	let gettingHistory = $state(false);
+
+	// TODO :
+	// store the requst history in a global store and make it run once
+	// add style
+
+	$effect(async () => {
+		if (!getRequestHistory()) {
+			gettingHistory = true;
+			try {
+				const res = await fetch('/dashboard/maintenance-request', {
+					method: 'POST',
+					body: JSON.stringify({ email: data['Email'] }),
+					headers: { 'Content-Type': 'application/json' }
+				});
+
+				const resData = await res.json();
+				setRequestHistory(resData.requestHistory);
+			} catch (err) {
+			} finally {
+				gettingHistory = false;
+			}
+		}
+	});
 
 	// if (form?.successMessage) notification(form.successMessage);
 	// if (form?.errorMessage) notification(form.errorMessage, "error");
@@ -44,9 +71,8 @@
 						return async ({ update }) => {
 							await update();
 							isSubmitting = false;
-							// show:  notification || error notification
-
-							// errorMsg = form?.message;
+							// console.log('form', form?.request);
+							if (form?.successMessage) setRequestHistory([...getRequestHistory(), form?.request]);
 						};
 					}}
 				>
@@ -66,14 +92,25 @@
 				</form>
 			</div>
 		</div>
-		<div class="h-fit basis-full rounded border border-gray-300 bg-white p-4 shadow">
+		<div class="h-fit basis-full rounded border border-gray-300 bg-white p-4 text-sm shadow">
 			<h2 class="mb-4 text-xl font-bold text-gray-600">Request History</h2>
-			{#if false}
-				your maintenance request history
+			{#if !gettingHistory}
+				{#if getRequestHistory()}
+					{#each getRequestHistory() as request}
+						<div class="border-primary_red/20 mb-4 border-l-2 px-2">
+							<h3 class="font-bold text-gray-500">{request['Location']}</h3>
+							<p class="text-gray-400">
+								<SeeMoreText text={request['Message']} color="#ff5266" />
+							</p>
+						</div>
+					{/each}
+				{:else}
+					<p class="text-center text-sm text-gray-400">
+						You haven't submitted a maintenance request yet.
+					</p>
+				{/if}
 			{:else}
-				<p class="text-center text-sm text-gray-400">
-					You haven't submitted a maintenance request yet.
-				</p>
+				<p>loading history</p>
 			{/if}
 		</div>
 	</div>

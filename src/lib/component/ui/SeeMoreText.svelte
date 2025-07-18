@@ -1,5 +1,5 @@
 <script>
-	const { text } = $props();
+	const { text, color = '#007775' } = $props();
 
 	let someText = $state('');
 	const maxText = 105;
@@ -18,6 +18,9 @@
 	const seeLessHandler = () => {
 		showMoreText = false;
 	};
+	const setstyleVariable = (node, value) => {
+		node.style.setProperty(`--color`, value);
+	};
 </script>
 
 <div class="">
@@ -27,18 +30,18 @@
 				{text}
 			</span>
 			<button
+				use:setstyleVariable={color}
 				type="button"
 				onclick={seeLessHandler}
-				class="text-primary_green bg-primary_green/5 cursor-pointer rounded-3xl px-1"
-				>...see less</button
+				class=" cursor-pointer rounded-3xl px-1">...see less</button
 			>
 		{:else}
 			<span>{someText} </span>
 			<button
+				use:setstyleVariable={color}
 				type="button"
 				onclick={seeMoreHandler}
-				class="bg-primary_green/5 text-primary_green cursor-pointer rounded-3xl px-1"
-				>...see more</button
+				class=" cursor-pointer rounded-3xl px-1">...see more</button
 			>
 		{/if}
 	{:else}
@@ -47,3 +50,10 @@
 		</span>
 	{/if}
 </div>
+
+<style>
+	button {
+		color: var(--color);
+		background-color: color-mix(in oklab, var(--color) 5%, transparent);
+	}
+</style>
