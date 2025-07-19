@@ -28,3 +28,20 @@ export const getRequestHistory = () => requestHistory;
 export const setRequestHistory = (request) => {
 	requestHistory = request;
 };
+
+// showPopup
+let popupMessage = $state(null);
+let popupMessageTimeoutId = null;
+export const setPopupMessage = (message, type = 'default') => {
+	if (popupMessageTimeoutId) clearTimeout(popupMessageTimeoutId);
+
+	popupMessage = null;
+	setTimeout(() => {
+		popupMessage = { message, type };
+	}, 0);
+
+	popupMessageTimeoutId = setTimeout(() => {
+		popupMessage = null;
+	}, 4000);
+};
+export const getPopupMessage = () => popupMessage;

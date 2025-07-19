@@ -24,14 +24,9 @@ export const actions = {
 
 				const rowData = row.toObject();
 
-				// rows.map((row) => {
-				// 	const rowData = row.toObject();
-				// });
-
 				return {
 					request: rowData,
-					successMessage:
-						'thank you for submitting a Maintenance request, it will be reviwed as soon as posible'
+					successMessage: 'Maintenance request submitted successfully'
 				};
 			} catch (err) {
 				return fail(303, { errorMessage: 'something went wrong, try again' });

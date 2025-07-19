@@ -3,16 +3,13 @@
 	import Input from '$lib/component/ui/Input.svelte';
 	import SeeMoreText from '$lib/component/ui/SeeMoreText.svelte';
 	import { onMount } from 'svelte';
-	import { getRequestHistory, setRequestHistory } from '../store.svelte.js';
+	import { getRequestHistory, setPopupMessage, setRequestHistory } from '../store.svelte.js';
+	import { SpinnerSolid } from 'svelte-awesome-icons';
 
 	const { data, form } = $props();
 
 	let isSubmitting = $state(false);
 	let gettingHistory = $state(false);
-
-	// TODO :
-	// store the requst history in a global store and make it run once
-	// add style
 
 	$effect(async () => {
 		if (!getRequestHistory()) {
@@ -32,14 +29,11 @@
 			}
 		}
 	});
-
-	// if (form?.successMessage) notification(form.successMessage);
-	// if (form?.errorMessage) notification(form.errorMessage, "error");
 </script>
 
 <section class="   sm:bg-transparent sm:p-4">
 	<div class="flex flex-col gap-4 xl:flex-row">
-		<div class=" w-full sm:mb-6 sm:w-lg xl:mb-0">
+		<div class=" w-full shrink-0 sm:mb-6 sm:w-lg xl:mb-0">
 			<article
 				class="mb-4 border border-gray-300 bg-white p-4 text-sm text-gray-500 *:mb-2 sm:mb-5 sm:rounded sm:shadow"
 			>
@@ -71,8 +65,10 @@
 						return async ({ update }) => {
 							await update();
 							isSubmitting = false;
-							// console.log('form', form?.request);
-							if (form?.successMessage) setRequestHistory([...getRequestHistory(), form?.request]);
+							if (form?.successMessage) {
+								setPopupMessage(form.successMessage, 'success');
+								setRequestHistory([...getRequestHistory(), form?.request]);
+							} else if (form?.errorMessage) setPopupMessage(form.errorMessage, 'error');
 						};
 					}}
 				>
@@ -82,10 +78,13 @@
 					<div class="flex justify-end">
 						<button
 							disabled={isSubmitting}
-							class="bg-primary_red w-46 cursor-pointer rounded-sm p-2 text-white disabled:bg-gray-400"
+							class="bg-primary_red w-48 cursor-pointer rounded-sm p-2 text-white disabled:bg-gray-400"
 						>
 							{#if isSubmitting}
-								Submitting Request
+								<div class="flex justify-center gap-2">
+									<span> Submitting Request </span>
+									<SpinnerSolid size={20} class="spinner animate-loading" />
+								</div>
 							{:else}
 								Submit Request
 							{/if}
@@ -114,7 +113,13 @@
 					</p>
 				{/if}
 			{:else}
-				<p>loading history</p>
+				<div class=" flex gap-2 text-gray-400">
+					<span>Loading history</span>
+
+					<span>
+						<SpinnerSolid size={20} class="spinner animate-loading" />
+					</span>
+				</div>
 			{/if}
 		</div>
 	</div>

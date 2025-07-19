@@ -16,7 +16,8 @@
 	import DashboardLink from '$lib/component/ui/DashboardLink.svelte';
 	import UserInfoPopup from '$lib/component/ui/UserInfoPopup.svelte';
 	import { json } from '@sveltejs/kit';
-	import { setIsUserActive, setUserSchedule } from './store.svelte.js';
+	import { getPopupMessage, setIsUserActive, setUserSchedule } from './store.svelte.js';
+	import Notification from '$lib/component/ui/Notification.svelte';
 	const { data, children, url } = $props();
 
 	let menuOpen = $state(false);
@@ -133,7 +134,11 @@
 					<ScrewdriverWrenchSolid size={16} class="text-primary_red opacity-70" />
 					<p>maintenance request</p>
 				</DashboardLink>
-				<DashboardLink to="" color="#f89e1e" pathname={$page.url.pathname}>
+				<DashboardLink
+					to="/dashboard/paper-plate-nomination"
+					color="#f89e1e"
+					pathname={$page.url.pathname}
+				>
 					<AwardSolid size={16} class="text-primary_yellow opacity-70" />
 					<p>paper plate nomination</p>
 				</DashboardLink>
@@ -162,7 +167,11 @@
 		</button>
 	</div>
 
-	<main class="bg-primary_yellow/5 grow overflow-auto">
+	<main class="bg-primary_yellow/5 relative grow overflow-auto">
+		{#if getPopupMessage()}
+			<Notification {...getPopupMessage()} />
+		{/if}
+
 		<!-- map | home -->
 		{#if $page.url.pathname == '/dashboard' || $page.url.pathname == '/dashboard/map' || dataLoaded}
 			{@render children()}
