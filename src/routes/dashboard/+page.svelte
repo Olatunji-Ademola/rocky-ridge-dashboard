@@ -6,6 +6,7 @@
 	const { data } = $props();
 	const userInfo = [
 		'Email',
+		'Position',
 		'Cabin Code',
 		'Instrument',
 		'Instrument Faculty',
@@ -62,7 +63,7 @@
 						{/if}
 					</button>
 				</div>
-			{:else}
+			{:else if data[info]}
 				<div class="*:mr-2">
 					<span class="text-primary_green">
 						{info} :
