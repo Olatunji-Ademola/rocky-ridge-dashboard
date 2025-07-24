@@ -29,6 +29,12 @@ export const setRequestHistory = (request) => {
 	requestHistory = request;
 };
 
+let AwardNominees = $state(null);
+export const getNominees = () => AwardNominees;
+export const setNominees = (nominee) => {
+	AwardNominees = nominee;
+};
+
 // showPopup
 let popupMessage = $state(null);
 let popupMessageTimeoutId = null;

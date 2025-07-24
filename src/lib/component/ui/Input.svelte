@@ -28,9 +28,9 @@
 
 <style>
 	#UserInput {
-		background: color-mix(in oklab, var(--color) 2.5%, transparent);
+		background: color-mix(in oklab, var(--color) 5%, transparent);
 
-		border-color: color-mix(in oklab, var(--color) 15%, transparent);
+		border-color: color-mix(in oklab, var(--color) 30%, transparent);
 
 		color: var(--color);
 	}
@@ -39,6 +39,6 @@
 	}
 
 	input::placeholder {
-		color: color-mix(in oklab, var(--color) 40%, transparent);
+		color: color-mix(in oklab, var(--color) 60%, transparent);
 	}
 </style>
