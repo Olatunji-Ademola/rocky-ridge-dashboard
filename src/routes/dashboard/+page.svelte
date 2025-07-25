@@ -40,7 +40,7 @@
 
 <section class=" sm:p-4">
 	<div
-		class="mx-auto min-w-xs rounded border border-gray-300 bg-white p-4 text-sm text-gray-600 *:my-2 sm:mx-0 sm:w-fit sm:px-6 sm:shadow"
+		class="mx-auto min-w-xs rounded-md bg-white p-4 text-sm text-gray-600 *:my-2 sm:mx-0 sm:w-fit sm:px-6 sm:shadow-md"
 	>
 		{#each userInfo as info}
 			{#if info == 'Cabin Code'}
@@ -75,9 +75,7 @@
 			{/if}
 		{/each}
 	</div>
-	<div
-		class=" my-10 max-w-4xl rounded border border-gray-300 bg-white p-4 text-sm text-gray-500 sm:shadow"
-	>
+	<div class=" my-10 max-w-4xl rounded-md bg-white p-4 text-sm text-gray-500 sm:shadow-md">
 		<h2 class="mb-4 text-xl font-bold text-gray-600">Announcements</h2>
 		<div class="flex flex-col-reverse gap-6">
 			{#if loadingAnnounement}

@@ -106,25 +106,21 @@
 		<div class=" lg:mt-20">
 			<h3 class="text-gray-400">Dash menu</h3>
 			<ul class=" mr-4 text-gray-600 capitalize *:mt-6">
-				<DashboardLink to="/dashboard" color="#bbb6ae" pathname={$page.url.pathname}>
-					<HouseSolid size="16" class="text-[#bbb6ae]" />
+				<DashboardLink to="/dashboard" color="#ff5266" pathname={$page.url.pathname}>
+					<HouseSolid size="16" class="text-primary_red opacity-70" />
 					<p>home</p>
 				</DashboardLink>
 				<DashboardLink to="/dashboard/schedule" color="#007775" pathname={$page.url.pathname}>
 					<CalendarRegular size={16} class="text-primary_green opacity-70" />
 					<p>schedule</p>
 				</DashboardLink>
-				<DashboardLink to="/dashboard/map" color="#ff5266" pathname={$page.url.pathname}>
-					<MapRegular size={16} class="text-primary_red opacity-70" />
+				<DashboardLink to="/dashboard/map" color="#f89e1e" pathname={$page.url.pathname}>
+					<MapRegular size={16} class="text-primary_yellow opacity-70" />
 					<p>campus map</p>
 				</DashboardLink>
-				<DashboardLink to="" color="#f89e1e" pathname={$page.url.pathname}>
-					<ClockRegular size={16} class="text-primary_yellow opacity-70" />
-					<p>time sheet</p>
-				</DashboardLink>
 				<DashboardLink to="" color="#007775" pathname={$page.url.pathname}>
-					<CalendarCheckRegular size={16} class="text-primary_green opacity-70" />
-					<p>schedule a lesson</p>
+					<ClockRegular size={16} class="text-primary_green opacity-70" />
+					<p>time sheet</p>
 				</DashboardLink>
 				<DashboardLink
 					to="/dashboard/maintenance-request"
@@ -167,7 +163,7 @@
 		</button>
 	</div>
 
-	<main class="bg-primary_yellow/5 relative grow overflow-auto">
+	<main class="relative grow overflow-auto bg-gray-50">
 		{#if getPopupMessage()}
 			<Notification {...getPopupMessage()} />
 		{/if}

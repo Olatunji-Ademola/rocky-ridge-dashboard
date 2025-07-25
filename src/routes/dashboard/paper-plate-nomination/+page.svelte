@@ -34,7 +34,7 @@
 	<div class="flex flex-col gap-4 xl:flex-row">
 		<div class=" w-full shrink-0 sm:mb-6 sm:w-lg xl:mb-0">
 			<article
-				class="mb-4 border border-gray-300 bg-white p-4 text-sm text-gray-500 *:mb-2 sm:mb-5 sm:rounded sm:shadow"
+				class="mb-4 bg-white p-4 text-sm text-gray-500 *:mb-2 sm:mb-5 sm:rounded-md sm:shadow-md"
 			>
 				<p>Hey everyone!</p>
 
@@ -57,7 +57,7 @@
 				<p>Get nominating and don't forget to have fun with it!</p>
 			</article>
 
-			<div class="border border-gray-300 bg-white p-4 sm:rounded sm:shadow">
+			<div class=" bg-white p-4 sm:rounded-md sm:shadow-md">
 				<form
 					action="?/request"
 					method="post"
@@ -100,7 +100,7 @@
 			</div>
 		</div>
 		<div
-			class="h-fit max-w-4xl basis-full border border-gray-300 bg-white p-4 text-sm sm:rounded sm:shadow lg:max-w-full"
+			class="h-fit max-w-4xl basis-full bg-white p-4 text-sm sm:rounded-md sm:shadow-md lg:max-w-full"
 		>
 			<h2 class="mb-4 text-xl font-bold text-gray-600">Your Nominees</h2>
 			{#if !gettingNominees}
