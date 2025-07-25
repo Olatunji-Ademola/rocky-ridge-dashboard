@@ -16,7 +16,12 @@
 	import DashboardLink from '$lib/component/ui/DashboardLink.svelte';
 	import UserInfoPopup from '$lib/component/ui/UserInfoPopup.svelte';
 	import { json } from '@sveltejs/kit';
-	import { getPopupMessage, setIsUserActive, setUserSchedule } from './store.svelte.js';
+	import {
+		getIsUserActive,
+		getPopupMessage,
+		setIsUserActive,
+		setUserSchedule
+	} from './store.svelte.js';
 	import Notification from '$lib/component/ui/Notification.svelte';
 	const { data, children, url } = $props();
 
@@ -98,9 +103,14 @@
 		class="absolute top-12 right-5 z-50 hidden min-w-69 overflow-hidden rounded-2xl border-r border-gray-500 border-r-gray-200 bg-white p-4 text-sm shadow-lg lg:static lg:block lg:h-full lg:rounded-none"
 	>
 		<div class=" hidden border-b border-b-gray-200 lg:block">
-			<h2 class="text-2xl font-bold">
-				{data['Name']}
-			</h2>
+			<div class="flex items-center gap-2">
+				<h2 class="text-2xl font-bold">
+					{data['Name']}
+				</h2>
+				<div
+					class="h-3 w-3 rounded-full {getIsUserActive() ? 'bg-green-400' : 'bg-gray-300'}"
+				></div>
+			</div>
 			<p class="text-sm text-gray-500">Welcome</p>
 		</div>
 		<div class=" lg:mt-20">

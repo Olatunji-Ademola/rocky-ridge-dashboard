@@ -3,7 +3,12 @@
 	import Input from '$lib/component/ui/Input.svelte';
 	import SeeMoreText from '$lib/component/ui/SeeMoreText.svelte';
 	import { onMount } from 'svelte';
-	import { getRequestHistory, setPopupMessage, setRequestHistory } from '../store.svelte.js';
+	import {
+		getIsUserActive,
+		getRequestHistory,
+		setPopupMessage,
+		setRequestHistory
+	} from '../store.svelte.js';
 	import { SpinnerSolid } from 'svelte-awesome-icons';
 
 	const { data, form } = $props();
@@ -55,10 +60,11 @@
 				<form
 					action="?/request"
 					method="post"
-					class="flex max-w-lg flex-col text-sm *:mb-2 sm:w-full"
+					class=" max-w-lg text-sm sm:w-full"
 					use:enhance={({ formData }) => {
 						formData.append('Name', data['Name']);
 						formData.append('Email', data['Email']);
+						formData.append('isActive', getIsUserActive());
 
 						isSubmitting = true;
 
@@ -72,24 +78,26 @@
 						};
 					}}
 				>
-					<Input name="location" placeholder="request location" color="#ff5266" />
-					<Input name="message" placeholder="message" isInput={false} color="#ff5266" />
+					<fieldset disabled={!getIsUserActive()} class="flex flex-col *:mb-2">
+						<Input name="location" placeholder="request location" color="#ff5266" />
+						<Input name="message" placeholder="message" isInput={false} color="#ff5266" />
 
-					<div class="flex justify-end">
-						<button
-							disabled={isSubmitting}
-							class="bg-primary_red w-48 cursor-pointer rounded-sm p-2 text-white disabled:bg-gray-400"
-						>
-							{#if isSubmitting}
-								<div class="flex justify-center gap-2">
-									<span> Submitting Request </span>
-									<SpinnerSolid size={20} class="spinner animate-loading" />
-								</div>
-							{:else}
-								Submit Request
-							{/if}
-						</button>
-					</div>
+						<div class="flex justify-end">
+							<button
+								disabled={isSubmitting}
+								class="bg-primary_red w-48 cursor-pointer rounded-sm p-2 text-white disabled:cursor-default disabled:bg-gray-400"
+							>
+								{#if isSubmitting}
+									<div class="flex justify-center gap-2">
+										<span> Submitting Request </span>
+										<SpinnerSolid size={20} class="spinner animate-loading" />
+									</div>
+								{:else}
+									Submit Request
+								{/if}
+							</button>
+						</div>
+					</fieldset>
 				</form>
 			</div>
 		</div>

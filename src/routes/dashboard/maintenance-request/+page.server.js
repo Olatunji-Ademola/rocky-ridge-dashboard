@@ -9,12 +9,15 @@ export const actions = {
 		const Email = data.get('Email');
 		const Location = data.get('location');
 		const Message = data.get('message');
+		const isActive = data.get('isActive');
 
-		// const isName =
 		const _isName = isName(Name);
 		const _isEmail = isEmail(Email);
 		const _isLocation = isLocation(Location);
 		const _isMessage = isMessage(Message);
+
+		if (isActive === 'false')
+			return fail(303, { errorMessage: 'you dont have access to this service' });
 
 		if (_isName && _isEmail && _isLocation && _isMessage) {
 			try {

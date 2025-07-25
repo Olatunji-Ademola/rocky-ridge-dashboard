@@ -9,8 +9,8 @@
 {#if isInput}
 	<input
 		use:setStyleVariableColot={color}
+		required
 		type="text"
-		id="UserInput"
 		{name}
 		{placeholder}
 		class="rounded border border-transparent p-2 outline-none"
@@ -19,26 +19,38 @@
 	<!-- rows="10" -->
 	<textarea
 		use:setStyleVariableColot={color}
-		id="UserInput"
+		required
 		{name}
 		{placeholder}
-		class="max-h-92 min-h-46 rounded border border-transparent p-2 outline-none"
+		class="text-gra gray max-h-92 min-h-46 rounded border border-transparent p-2 outline-none disabled:resize-none"
 	></textarea>
 {/if}
 
 <style>
-	#UserInput {
+	input,
+	textarea {
 		background: color-mix(in oklab, var(--color) 5%, transparent);
 
 		border-color: color-mix(in oklab, var(--color) 30%, transparent);
 
 		color: var(--color);
 	}
-	#UserInput:focus {
+	input:focus,
+	textarea:focus {
 		border-color: color-mix(in oklab, var(--color) 35%, transparent);
 	}
 
-	input::placeholder {
+	input::placeholder,
+	textarea::placeholder {
 		color: color-mix(in oklab, var(--color) 60%, transparent);
+	}
+	input:disabled,
+	textarea:disabled {
+		background-color: #d1d5dc33;
+		border-color: #d1d5dc;
+	}
+	input:disabled::placeholder,
+	textarea:disabled::placeholder {
+		color: #99a1af;
 	}
 </style>
