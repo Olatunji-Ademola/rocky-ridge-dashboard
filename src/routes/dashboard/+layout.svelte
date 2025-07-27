@@ -95,6 +95,22 @@
 	const closeMenu = () => {
 		menuOpen = false;
 	};
+
+	$effect(async () => {
+		const pathname = $page.url.pathname;
+
+		if (
+			pathname === '/dashboard/time-sheet' &&
+			!(data['role'] === 'Staff' || (data['role'] === 'Student' && data['Employee'] === 'TRUE'))
+		) {
+			await fetch('/dashboard/api/goHome');
+		}
+
+		if (pathname === '/dashboard/paper-plate-nomination' && data['role'] !== 'Student') {
+			console.log('beans');
+			await fetch('/dashboard/api/goHome');
+		}
+	});
 </script>
 
 <div class="relative flex h-svh flex-col lg:flex-row">
@@ -128,10 +144,13 @@
 					<MapRegular size={16} class="text-primary_yellow opacity-70" />
 					<p>campus map</p>
 				</DashboardLink>
-				<DashboardLink to="" color="#007775" pathname={$page.url.pathname}>
-					<ClockRegular size={16} class="text-primary_green opacity-70" />
-					<p>time sheet</p>
-				</DashboardLink>
+				{#if data['role'] === 'Staff' || (data['role'] === 'Student' && data['Employee'] === 'TRUE')}
+					<DashboardLink to="/dashboard/time-sheet" color="#007775" pathname={$page.url.pathname}>
+						<ClockRegular size={16} class="text-primary_green opacity-70" />
+						<p>time sheet</p>
+					</DashboardLink>
+				{/if}
+
 				<DashboardLink
 					to="/dashboard/maintenance-request"
 					color="#ff5266"
@@ -140,14 +159,16 @@
 					<ScrewdriverWrenchSolid size={16} class="text-primary_red opacity-70" />
 					<p>maintenance request</p>
 				</DashboardLink>
-				<DashboardLink
-					to="/dashboard/paper-plate-nomination"
-					color="#f89e1e"
-					pathname={$page.url.pathname}
-				>
-					<AwardSolid size={16} class="text-primary_yellow opacity-70" />
-					<p>paper plate nomination</p>
-				</DashboardLink>
+				{#if data['role'] === 'Student'}
+					<DashboardLink
+						to="/dashboard/paper-plate-nomination"
+						color="#f89e1e"
+						pathname={$page.url.pathname}
+					>
+						<AwardSolid size={16} class="text-primary_yellow opacity-70" />
+						<p>paper plate nomination</p>
+					</DashboardLink>
+				{/if}
 			</ul>
 		</div>
 	</aside>
