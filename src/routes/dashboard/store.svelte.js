@@ -35,6 +35,31 @@ export const setNominees = (nominee) => {
 	AwardNominees = nominee;
 };
 
+let presentTime = $state('');
+export const getPresentTime = () => presentTime;
+export const setPresentTime = (time) => {
+	presentTime = time;
+};
+
+let timeSheetHours = $state(null);
+export const getTimeSheetHours = () => timeSheetHours;
+export const setTimeSheetHours = (sheetHours) => {
+	timeSheetHours = { ...timeSheetHours, ...sheetHours };
+};
+export const clearTimeSheetHours = () => {
+	timeSheetHours = null;
+};
+export const deleteTimeSheetHours = (date) => {
+	delete timeSheetHours[date];
+};
+
+let timeSheetList = $state(null);
+export const getTimeSheetList = () => timeSheetList;
+export const setTimeSheetList = (timeSheet) => {
+	if (timeSheetList) timeSheetList = [...timeSheetList, ...timeSheet];
+	else timeSheetList = timeSheet;
+};
+
 // showPopup
 let popupMessage = $state(null);
 let popupMessageTimeoutId = null;

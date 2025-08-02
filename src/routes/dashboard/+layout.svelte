@@ -20,6 +20,8 @@
 		getIsUserActive,
 		getPopupMessage,
 		setIsUserActive,
+		setPopupMessage,
+		setPresentTime,
 		setUserSchedule
 	} from './store.svelte.js';
 	import Notification from '$lib/component/ui/Notification.svelte';
@@ -36,7 +38,12 @@
 		try {
 			const res = await fetch('/dashboard/api/presentSession');
 			const sessionData = await res.json();
-			const { presentSession, allSessionList } = sessionData;
+			const { presentSession, allSessionList, presentTime } = sessionData;
+
+			// console.log('presentTime', presentTime);
+			setPresentTime(presentTime);
+
+			// console.log('nothing');
 
 			// list of session the user is active for
 
@@ -107,7 +114,6 @@
 		}
 
 		if (pathname === '/dashboard/paper-plate-nomination' && data['role'] !== 'Student') {
-			console.log('beans');
 			await fetch('/dashboard/api/goHome');
 		}
 	});
@@ -194,11 +200,10 @@
 		</button>
 	</div>
 
+	{#if getPopupMessage()}
+		<Notification {...getPopupMessage()} />
+	{/if}
 	<main class="relative grow overflow-auto bg-gray-50">
-		{#if getPopupMessage()}
-			<Notification {...getPopupMessage()} />
-		{/if}
-
 		<!-- map | home -->
 		{#if $page.url.pathname == '/dashboard' || $page.url.pathname == '/dashboard/map' || dataLoaded}
 			{@render children()}

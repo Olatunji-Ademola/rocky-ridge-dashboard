@@ -11,7 +11,13 @@ import {
 
 export async function load({ cookies }) {
 	// delete cookie
-	cookies.delete('sessionTokenID', { path: '/' });
+	const canReload = cookies.get('sessionTokenID') !== undefined;
+
+	if (canReload) {
+		cookies.delete('sessionTokenID', { path: '/' });
+	}
+
+	return { canReload };
 }
 
 export const actions = {
@@ -38,9 +44,12 @@ export const actions = {
 		const sheet = await getSheet(role);
 
 		if (sheet) {
-			const rowData = await getRowByPassword(sheet, password);
+			const { success, data: rowData } = await getRowByPassword(sheet, password);
 
-			if (rowData) {
+			if (success) {
+				// password not found
+				if (!rowData) return fail(401, { email, message: 'Invalid password or email address' });
+
 				const isEmailVerified = rowData['Email'] === email;
 
 				if (isEmailVerified) {
@@ -58,8 +67,7 @@ export const actions = {
 					return fail(401, { email, message: 'Invalid password or email address' });
 				}
 			} else {
-				// password is found
-				return fail(401, { email, message: 'Invalid password or email address' });
+				return fail(401, { email, message: 'something went wrong try again' });
 			}
 		} else {
 			return fail(500, { email, message: 'something went wrong try again' });

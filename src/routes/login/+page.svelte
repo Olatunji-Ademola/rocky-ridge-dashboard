@@ -4,10 +4,17 @@
 	import PasswordWithVisibiltyToggle from './PasswordWithVisibiltyToggle.svelte';
 	import RoleSeletion from './RoleSeletion.svelte';
 	import { enhance } from '$app/forms';
+	import { onMount } from 'svelte';
 
-	const { form } = $props();
+	const { form, data } = $props();
 	let errorMsg = $state(null);
 	let isSubmittingForm = $state(false);
+
+	onMount(() => {
+		if (data.canReload) {
+			location.reload();
+		}
+	});
 </script>
 
 <main class="flex h-svh justify-center sm:items-center sm:bg-gray-100">

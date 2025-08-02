@@ -33,15 +33,17 @@ export const getRowByPassword = async (sheet, password) => {
 	try {
 		let data = null;
 		const rows = await sheet.getRows();
+		if (!rows) return { success: false };
 
 		const rowData = rows.filter((row) => {
 			return row.toObject()['Password'] === password;
 		});
 
 		data = rowData.length ? rowData[0].toObject() : null;
-		return data;
+
+		return { success: true, data };
 	} catch (err) {
-		return null;
+		return { success: false };
 	}
 };
 

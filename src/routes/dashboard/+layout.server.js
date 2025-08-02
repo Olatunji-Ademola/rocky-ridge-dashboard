@@ -21,17 +21,17 @@ export const load = async ({ cookies }) => {
 	const [password, role, expirationDate] = dataFormSession(sessionID);
 	const sec = (Date.now() - expirationDate) / 1000;
 
-	// if any of the values are incorrect or past the expirationDate(30 min) go back to login page
-	if (isNaN(expirationDate) || !isPassword(password) || !isRole(role) || sec > 1800 || sec < 0)
-		throw redirect(301, '/');
+	// if any of the values are incorrect or past the expirationDate(1 hour) go back to login page
+	if (isNaN(expirationDate) || !isPassword(password) || !isRole(role) || sec > 3600 || sec < 0)
+		throw redirect(302, '/');
 
 	// get sheet
 	const sheet = await getSheet(role);
-	if (!sheet) throw redirect(301, '/');
+	if (!sheet) throw redirect(302, '/');
 
 	// get userdata
-	const useData = await getRowByPassword(sheet, password);
-	if (!useData) throw redirect(301, '/');
+	const { success, data: useData } = await getRowByPassword(sheet, password);
+	if (!useData) throw redirect(302, '/');
 
 	delete useData['Password'];
 
