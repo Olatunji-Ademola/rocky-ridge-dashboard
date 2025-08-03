@@ -19,7 +19,7 @@
 
 <div
 	id="notify"
-	class="absolute top-0 left-1/2 z-50 flex min-w-64 -translate-x-1/2 gap-3 rounded-xl p-4 text-sm text-white {color}"
+	class="absolute top-0 left-1/2 z-100 flex min-w-64 -translate-x-1/2 gap-3 rounded-xl p-4 text-sm text-white {color}"
 >
 	<!-- <div class="flex gap-2"> -->
 	<div>

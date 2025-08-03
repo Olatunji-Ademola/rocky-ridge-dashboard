@@ -8,7 +8,8 @@
 		getTimeSheetList,
 		setPopupMessage,
 		setTimeSheetHours,
-		setTimeSheetList
+		setTimeSheetList,
+		showTimeSheetModel
 	} from '../store.svelte';
 	import { onMount } from 'svelte';
 	import Calendar from '$lib/component/Calendar.svelte';
@@ -24,7 +25,6 @@
 	// check if any of the days(date) match any data(like done or saved)
 	// show the appoprate styling
 
-	let isSubmitting = $state(false);
 	let isLoadingTimesheet = $state(false);
 	let month = $state(Number(todayMonth));
 	let year = $state(Number(todayYear));
@@ -115,8 +115,6 @@
 						const thisDate = new Date(date);
 
 						if (thisDate >= startDate && thisDate <= endDate) {
-							console.log();
-
 							if (!(thisDate > startDate)) startDone = true;
 							else if (!(thisDate < endDate)) endDone = true;
 
@@ -226,6 +224,19 @@
 			}
 		}
 	});
+
+	const showTimeSheetModelHandler = () => {
+		const formData = {
+			Name: data['Name'],
+			Email: data['Email'],
+			minDate,
+			maxDate,
+			Position: data['Position'] || 'Work Study',
+			Hours: totalHours
+		};
+
+		showTimeSheetModel(formData);
+	};
 </script>
 
 <main class="w-full sm:p-4">
@@ -274,54 +285,13 @@
 					</div>
 
 					<div class="mt-auto">
-						<form
-							action="?/submitTimeSheet"
-							method="post"
-							use:enhance={({ formData }) => {
-								formData.append('Name', data['Name']);
-								formData.append('Email', data['Email']);
-								formData.append('Start Date', minDate);
-								formData.append('End Date', maxDate);
-								formData.append('Position', data['Position'] || 'Work Study');
-								formData.append('Hours', totalHours);
-								formData.append('isActive', getIsUserActive());
-
-								console.log('isActive', getIsUserActive());
-
-								isSubmitting = true;
-
-								return async ({ update }) => {
-									await update();
-									isSubmitting = false;
-									if (form?.successMessage) {
-										setPopupMessage(form.successMessage, 'success');
-										clearTimeSheetHours();
-
-										setTimeSheetList([
-											{
-												StartDate: form.data.StartDate,
-												EndDate: form.data.EndDate,
-												Hours: form.data.Hours
-											}
-										]);
-									} else if (form?.errorMessage) setPopupMessage(form.errorMessage, 'error');
-								};
-							}}
+						<button
+							type="button"
+							onclick={showTimeSheetModelHandler}
+							class="bg-primary_red cursor-pointer rounded p-2 px-4 text-white"
 						>
-							<button
-								disabled={isSubmitting || !getIsUserActive()}
-								class="bg-primary_red cursor-pointer rounded p-2 px-4 text-white disabled:bg-gray-400"
-							>
-								{#if isSubmitting}
-									<span class="flex items-center gap-2">
-										<p>Submitting Timesheet</p>
-										<SpinnerSolid size={20} class="spinner animate-loading mx-auto" />
-									</span>
-								{:else}
-									Submit Timesheet
-								{/if}
-							</button>
-						</form>
+							Submit Timesheet
+						</button>
 					</div>
 				</div>
 			{/if}
@@ -341,16 +311,18 @@
 							<div class="py-2 text-sm font-bold text-gray-500">
 								{key}
 							</div>
-							{#each timeSheetHistory[key] as value}
-								<div
-									class="border-primary_red/10 flex justify-between border-t p-2 text-sm text-gray-400"
-								>
-									<div>
-										{value.date}
+							<div class="flex flex-col-reverse">
+								{#each timeSheetHistory[key] as value}
+									<div
+										class="border-primary_red/15 flex justify-between border-t p-2 text-sm text-gray-400"
+									>
+										<div>
+											{value.date}
+										</div>
+										<div>Total hours {value.hours}</div>
 									</div>
-									<div>Total hours {value.hours}</div>
-								</div>
-							{/each}
+								{/each}
+							</div>
 						</div>
 					{/each}
 				{:else}

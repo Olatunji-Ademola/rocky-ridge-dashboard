@@ -13,7 +13,10 @@
 		'Practice Room Assignment',
 		'Cabin Assignment',
 		'Ensemble Coaches',
-		'Ensemble info'
+		'Ensemble info',
+		'Lesson time',
+		'Ensembles',
+		'Ensemble Rehearsal Time'
 	];
 
 	let showPassword = $state(false);

@@ -76,3 +76,18 @@ export const setPopupMessage = (message, type = 'default') => {
 	}, 4000);
 };
 export const getPopupMessage = () => popupMessage;
+
+// show timesheet model
+let timeSheetModelData = $state(null);
+
+export const getTimeSheetModelData = () => {
+	return timeSheetModelData;
+};
+
+export const showTimeSheetModel = (data) => {
+	timeSheetModelData = data;
+};
+
+export const hideTimeSheetModel = (data) => {
+	timeSheetModelData = null;
+};
